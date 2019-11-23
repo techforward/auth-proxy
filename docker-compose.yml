@@ -1,0 +1,21 @@
+version: "3"
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sqls/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: gerhuhaer
+      MYSQL_DATABASE: todoList
+      MYSQL_USER: t0w4
+      MYSQL_PASSWORD: faweufhli
+
+  auth-proxy:
+    container_name: auth-proxy-server
+    image: go
+    ports:
+      - 8080:80
