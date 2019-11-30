@@ -1,6 +1,7 @@
 # README
 
 - https://api-dot-soccer-250403.appspot.com/GetArticle/81
+- ローカルでサブドメイン捌くのは`lvh.me`
 
 ## 流れ
 ### 準備
@@ -16,7 +17,16 @@
 3. トークンの検証
 4. Destの書き換え `soccerapi.exanple.com` => `api-dot-soccer-250403.appspot.com`
 
+## Check
+```
+curl -H "Origin: http://example.com" soccerapi.lvh.me/GetArticle/81
+```
+
 ## todo
+
+- dbなしで、決めうち
+  - id: test
+  - pass: test
 
 - auth / token class
   - cahce dataloader
@@ -32,3 +42,9 @@
 
 - route
   - メモリキャッシュ
+
+## Ref
+
+- https://github.com/rs/cors
+- https://github.com/justinas/alice
+- https://github.com/dgrijalva/jwt-go

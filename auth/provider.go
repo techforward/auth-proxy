@@ -18,7 +18,7 @@ func NewProvider(r Repository) *Provider {
 	return &Provider{r}
 }
 
-func (p *Provider) create() string {
+func (p *Provider) createToken() string {
 	signBytes, err := ioutil.ReadFile("./demo.rsa")
 	if err != nil {
 		panic(err)
@@ -46,7 +46,7 @@ func (p *Provider) create() string {
 	return tokenString
 }
 
-func (p *Provider) verify(tokenString string) bool {
+func (p *Provider) verifyToken(tokenString string) bool {
 	verifyBytes, err := ioutil.ReadFile("./demo.rsa.pub.pkcs8")
 	if err != nil {
 		panic(err)

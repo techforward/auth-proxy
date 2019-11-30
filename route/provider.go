@@ -13,3 +13,7 @@ func NewProvider(r Repository) *Provider {
 func (p *Provider) getDest(src string) string {
 	return "localhost:3000"
 }
+
+func (p *Provider) verifyHost(domainHosts map[string]bool, host string) bool {
+	return domainHosts[host]
+}
