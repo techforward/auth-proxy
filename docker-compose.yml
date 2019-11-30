@@ -14,8 +14,17 @@ services:
       MYSQL_USER: t0w4
       MYSQL_PASSWORD: faweufhli
 
+  sample-server:
+    image: ergofriend/ogp-local-checker:prod
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    restart: always
+
   auth-proxy:
-    container_name: auth-proxy-server
-    image: go
+    build: .
+    depends_on:
+      - sample-server
     ports:
       - 8080:80
