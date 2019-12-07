@@ -8,18 +8,19 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-// Provider ...
-type Provider struct {
-	r Repository
+type provider struct {
+	Repository
 }
 
-// NewProvider ...
-func NewProvider(r Repository) *Provider {
-	return &Provider{r}
+var _ Repository = (*provider)(nil)
+
+// New ...
+func New() Repository {
+	return &provider{}
 }
 
-func (p *Provider) createToken() string {
-	signBytes, err := ioutil.ReadFile("./demo.rsa")
+func (p *provider) CreateToken() string {
+	signBytes, err := ioutil.ReadFile("./private-key.pem")
 	if err != nil {
 		panic(err)
 	}
@@ -46,24 +47,19 @@ func (p *Provider) createToken() string {
 	return tokenString
 }
 
-func (p *Provider) verifyToken(tokenString string) bool {
-	verifyBytes, err := ioutil.ReadFile("./demo.rsa.pub.pkcs8")
-	if err != nil {
-		panic(err)
-	}
+func (p *provider) VerifyToken(tokenString string) bool {
+	verifyBytes, err := ioutil.ReadFile("./public-key.pem")
+
 	verifyKey, err := jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
-	if err != nil {
-		panic(err)
-	}
 
 	// verify token
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		_, err := token.Method.(*jwt.SigningMethodRSA)
 		if !err {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
-		} else {
-			return verifyKey, nil
 		}
+		return verifyKey, nil
+
 	})
 
 	if err == nil && token.Valid {

@@ -1,6 +1,7 @@
 package auth
 
+// Repository auth
 type Repository interface {
-	createToken()
-	verifyToken()
+	CreateToken() string
+	VerifyToken(string) bool
 }
