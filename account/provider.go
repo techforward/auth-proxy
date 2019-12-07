@@ -7,17 +7,14 @@ import (
 	"github.com/oklog/ulid/v2"
 )
 
-// Provider ...
-type Provider struct {
-	r Repository
+type provider struct{}
+
+// New ...
+func New() Repository {
+	return &provider{}
 }
 
-// NewProvider ...
-func NewProvider(r Repository) *Provider {
-	return &Provider{r}
-}
-
-func (p *Provider) create(username, password string) Account {
+func (p *provider) create(username, password string) Account {
 	t := time.Unix(1000000, 0)
 	entropy := ulid.Monotonic(rand.New(rand.NewSource(t.UnixNano())), 0)
 	ulid := ulid.MustNew(ulid.Timestamp(t), entropy)
@@ -30,8 +27,8 @@ func (p *Provider) create(username, password string) Account {
 	return *account
 }
 
-func (p *Provider) update() {}
+func (p *provider) update() Account { return Account{} }
 
-func (p *Provider) delete() {}
+func (p *provider) delete() bool { return true }
 
-func (p *Provider) changePassword() {}
+func (p *provider) changePassword() bool { return true }
