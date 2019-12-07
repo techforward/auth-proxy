@@ -13,7 +13,7 @@ func New() Repository {
 	// mapping["jwt-auth."+domainHost] = "172.0.0.1:8080"
 	// mapping[domainHost] = domainHost
 	mapping["cat-fact."+domainHost] = "cat-fact.herokuapp.com"
-	mapping["api-dot-soccer-250403."+domainHost] = "api-dot-soccer-250403.appspot.com"
+	mapping["api-soccer."+domainHost] = "api-dot-soccer-250403.appspot.com"
 	return &Provider{mapping}
 }
 

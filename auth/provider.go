@@ -3,6 +3,7 @@ package auth
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -22,12 +23,12 @@ func New() Repository {
 func (p *provider) CreateToken() string {
 	signBytes, err := ioutil.ReadFile("./private-key.pem")
 	if err != nil {
-		panic(err)
+		log.Printf("signBytes: %+v ", err)
 	}
 
 	signKey, err := jwt.ParseRSAPrivateKeyFromPEM(signBytes)
 	if err != nil {
-		panic(err)
+		log.Printf("signKey: %+v ", signKey)
 	}
 
 	// create token
@@ -49,8 +50,14 @@ func (p *provider) CreateToken() string {
 
 func (p *provider) VerifyToken(tokenString string) bool {
 	verifyBytes, err := ioutil.ReadFile("./public-key.pem")
+	if err != nil {
+		log.Printf("verifyBytes: %+v ", err)
+	}
 
-	verifyKey, err := jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
+	verifyKey, verifyKeyErr := jwt.ParseRSAPublicKeyFromPEM([]byte(verifyBytes))
+	if verifyKeyErr != nil {
+		log.Printf("verifyKey: %+v ", verifyKeyErr)
+	}
 
 	// verify token
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -59,11 +66,11 @@ func (p *provider) VerifyToken(tokenString string) bool {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
 		return verifyKey, nil
-
 	})
 
 	if err == nil && token.Valid {
 		return true
 	}
+
 	return false
 }
