@@ -33,7 +33,7 @@ func main() {
 	director := func(request *http.Request) {
 		destHost := routeProvider.GetDest(request.Host)
 		log.Printf("%s to %s ", request.Host, destHost)
-		// request.Host = destHost
+		request.Host = destHost
 		request.URL.Scheme = "http"
 		request.URL.Host = destHost
 		log.Printf("request.URL: %+v ", request.URL)
