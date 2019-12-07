@@ -1,7 +1,7 @@
 package route
 
+// Repository ...
 type Repository interface {
-	verifyHost(domainHosts map[string]bool, host string) bool
-	addRoute()
-	getDest(scr string) string
+	AddRoute() bool
+	GetDest(string) string
 }
