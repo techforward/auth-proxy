@@ -23,11 +23,13 @@
 ```
 curl -H "Origin: http://example.com" soccerapi.lvh.me/GetArticle/81
 
-curl -H "Proxy-Authorization: XXXXXXXXXXX" -H "Origin: lvh.me" twitter.lvh.me
+curl -H "Proxy-Authorization: xxx" -H "Origin: lvh.me" http://api-soccer.lvh.me/GetArticle/81
 
 curl -H "Origin: lvh.me" https://cat-fact.lvh.me/facts/random
 
-curl -H "Origin: lvh.me" http://api-dot-soccer-250403.lvh.me/GetArticle/81
+curl -H "Origin: lvh.me" http://api-soccer.lvh.me/GetArticle/81
+
+curl -H "Proxy-Authorization: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNTc1OTY1NTk1LCJuYW1lIjoidGVzdCJ9.sohWVsSVq_j_TrGroATHDi1IUpkzLfuAkkuqfGsqwRiAuZ7qX0ZMFl3SUHNxtieEgFUBS4an8BPdgF6nGB4OxIFcUrTVyNTeRHwr4hmT_e-HO-BPy9M_zSDwd8UPl5Bo-jUtffbTi_1iVNCQGh6DdhQU9IoQCnvM0wKxWDVWoD8" -H "Origin: lvh.me" http://api-soccer.lvh.me/GetArticle/81
 
 ```
 
